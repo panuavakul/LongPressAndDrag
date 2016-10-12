@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="LongPressAndDrag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qu5-3C-UDn" userLabel="LongPressMeView">
+                                <rect key="frame" x="180" y="236" width="240" height="128"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jQ8-1S-n5A" userLabel="TouchLayer">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.29550107758620692" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="cFA-CK-dPH" appends="YES" id="D2l-xc-7DG"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="jQ8-1S-n5A" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Atw-sJ-FFm"/>
+                            <constraint firstAttribute="trailing" secondItem="jQ8-1S-n5A" secondAttribute="trailing" id="dYW-DS-fvw"/>
+                            <constraint firstItem="Qu5-3C-UDn" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="f8J-ii-lhU"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jQ8-1S-n5A" secondAttribute="bottom" id="kSq-h1-94l"/>
+                            <constraint firstItem="Qu5-3C-UDn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="o4u-PL-Gie"/>
+                            <constraint firstItem="jQ8-1S-n5A" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="vOc-sw-qUc"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="f8J-ii-lhU"/>
+                                <exclude reference="o4u-PL-Gie"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="longPressMeView" destination="Qu5-3C-UDn" id="ymi-fZ-UTc"/>
+                        <outlet property="touchLayer" destination="jQ8-1S-n5A" id="hac-GK-fo5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="cFA-CK-dPH">
+                    <connections>
+                        <action selector="handleLongPress:" destination="BYZ-38-t0r" id="2Gb-Cd-Wgn"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="435" y="429"/>
+        </scene>
+    </scenes>
+</document>
