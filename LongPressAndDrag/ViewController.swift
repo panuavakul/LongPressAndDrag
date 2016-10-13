@@ -35,67 +35,63 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func handleLongPress(sender: UILongPressGestureRecognizer) {
-    
-        switch touchStates {
-        case .Initial:
+        switch sender.state {
+        case .Began:
             // Check if the longPress is at the longPressMeView
             let longPressPoint = sender.locationInView(view)
             guard CGRectContainsPoint(longPressMeView.frame, longPressPoint) else{
                 return
             }
             
-            if sender.state == .Began {
-                // Create new view on top of the longPressMeView
-                let popUpView = UIView(frame: longPressMeView.frame)
-                popUpView.backgroundColor = UIColor.brownColor()
-                view.addSubview(popUpView)
-                //need to send it behind the touch layer
-                view.sendSubviewToBack(popUpView)
-                
-                // hide the longPressMeView
-                longPressMeView.hidden = true
-                touchStates = .Draging
-                
-                // set the focus to the newly created popup view
-                focusView = popUpView
-            }
-        case .Draging:
+            // Create new view on top of the longPressMeView
+            let popUpView = UIView(frame: longPressMeView.frame)
+            popUpView.backgroundColor = UIColor.brownColor()
+            view.addSubview(popUpView)
+            //need to send it behind the touch layer
+            view.sendSubviewToBack(popUpView)
+            
+            // hide the longPressMeView
+            longPressMeView.hidden = true
+            touchStates = .Draging
+            
+            // set the focus to the newly created popup view
+            focusView = popUpView
+            
+        case .Changed, .Ended:
             let point = sender.locationInView(view)
             // If this is the first time then assign it to point
             
             guard let unwrappedFocusView = focusView else {
                 return
             }
+            let previousCenter = unwrappedFocusView.center
             
-            switch sender.state {
-            case .Changed, .Ended:
-                let previousCenter = unwrappedFocusView.center
+            // Calculating translation distance
+            let trans = CGPoint(x: point.x - (previousTouchPoint ?? point).x, y: point.y - (previousTouchPoint ?? point).y)
+            
+            // Calculating new center
+            let newCenter = CGPoint(x: previousCenter.x + trans.x, y: previousCenter.y + trans.y)
+            
+            unwrappedFocusView.center = newCenter
+            
+            previousTouchPoint = point
+            
+            if sender.state == .Ended {
+                longPressMeView.hidden = false
+                longPressMeView.center = newCenter
+                unwrappedFocusView.removeFromSuperview()
                 
-                // Calculating translation distance
-                let trans = CGPoint(x: point.x - (previousTouchPoint ?? point).x, y: point.y - (previousTouchPoint ?? point).y)
                 
-                // Calculating new center
-                let newCenter = CGPoint(x: previousCenter.x + trans.x, y: previousCenter.y + trans.y)
-                
-                unwrappedFocusView.center = newCenter
-                
-                previousTouchPoint = point
-                
-                if sender.state == .Ended {
-                    longPressMeView.hidden = false
-                    longPressMeView.center = newCenter
-                    unwrappedFocusView.removeFromSuperview()
-                    
-                    
-                    // Reset touchState
-                    touchStates = .Initial
-                    // Reset the previousTouchPoint
-                    previousTouchPoint = nil
-                }
-            default:
-                break
+                // Reset touchState
+                touchStates = .Initial
+                // Reset the previousTouchPoint
+                previousTouchPoint = nil
             }
+        
+        default:
+            break
         }
+        
     }
 }
 
