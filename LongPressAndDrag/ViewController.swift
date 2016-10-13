@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     
     private var touchStates:TouchStates = .Initial
     private var focusView: UIView?
+    private var previousTouchPoint: CGPoint?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,25 +61,37 @@ class ViewController: UIViewController {
             }
         case .Draging:
             let point = sender.locationInView(view)
+            // If this is the first time then assign it to point
             
             guard let unwrappedFocusView = focusView else {
                 return
             }
             
             switch sender.state {
-            case .Changed:
-                unwrappedFocusView.center = point
-            case .Ended:
-                // Remove the popupView
+            case .Changed, .Ended:
+                let previousCenter = unwrappedFocusView.center
                 
-                longPressMeView.hidden = false
-                longPressMeView.center = point
-                unwrappedFocusView.removeFromSuperview()
+                // Calculating translation distance
+                let trans = CGPoint(x: point.x - (previousTouchPoint ?? point).x, y: point.y - (previousTouchPoint ?? point).y)
                 
+                // Calculating new center
+                let newCenter = CGPoint(x: previousCenter.x + trans.x, y: previousCenter.y + trans.y)
                 
-                // Reset touchState
-                touchStates = .Initial
+                unwrappedFocusView.center = newCenter
                 
+                previousTouchPoint = point
+                
+                if sender.state == .Ended {
+                    longPressMeView.hidden = false
+                    longPressMeView.center = newCenter
+                    unwrappedFocusView.removeFromSuperview()
+                    
+                    
+                    // Reset touchState
+                    touchStates = .Initial
+                    // Reset the previousTouchPoint
+                    previousTouchPoint = nil
+                }
             default:
                 break
             }
