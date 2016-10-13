@@ -22,24 +22,12 @@
                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jQ8-1S-n5A" userLabel="TouchLayer">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.29550107758620692" colorSpace="calibratedRGB"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="cFA-CK-dPH" appends="YES" id="D2l-xc-7DG"/>
-                                </connections>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="jQ8-1S-n5A" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Atw-sJ-FFm"/>
-                            <constraint firstAttribute="trailing" secondItem="jQ8-1S-n5A" secondAttribute="trailing" id="dYW-DS-fvw"/>
                             <constraint firstItem="Qu5-3C-UDn" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="f8J-ii-lhU"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jQ8-1S-n5A" secondAttribute="bottom" id="kSq-h1-94l"/>
                             <constraint firstItem="Qu5-3C-UDn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="o4u-PL-Gie"/>
-                            <constraint firstItem="jQ8-1S-n5A" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="vOc-sw-qUc"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -47,16 +35,18 @@
                                 <exclude reference="o4u-PL-Gie"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ZrT-sS-oFy" appends="YES" id="OFB-Qe-Umc"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="longPressMeView" destination="Qu5-3C-UDn" id="ymi-fZ-UTc"/>
-                        <outlet property="touchLayer" destination="jQ8-1S-n5A" id="hac-GK-fo5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="cFA-CK-dPH">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ZrT-sS-oFy">
                     <connections>
-                        <action selector="handleLongPress:" destination="BYZ-38-t0r" id="2Gb-Cd-Wgn"/>
+                        <action selector="handleLongPress:" destination="BYZ-38-t0r" id="ZUI-0h-UAJ"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
