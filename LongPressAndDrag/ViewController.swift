@@ -13,12 +13,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var touchLayer: UIView!
     @IBOutlet weak var longPressMeView: UIView!
     
-    enum TouchStates {
-        case Initial
-        case Draging
-    }
-    
-    private var touchStates:TouchStates = .Initial
     private var focusView: UIView?
     private var previousTouchPoint: CGPoint?
 
@@ -52,7 +46,6 @@ class ViewController: UIViewController {
             
             // hide the longPressMeView
             longPressMeView.hidden = true
-            touchStates = .Draging
             
             // set the focus to the newly created popup view
             focusView = popUpView
@@ -81,9 +74,6 @@ class ViewController: UIViewController {
                 longPressMeView.center = newCenter
                 unwrappedFocusView.removeFromSuperview()
                 
-                
-                // Reset touchState
-                touchStates = .Initial
                 // Reset the previousTouchPoint
                 previousTouchPoint = nil
             }
